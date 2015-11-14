@@ -11,14 +11,56 @@ FamCal.mainPage = SC.Page.design({
   // Add childViews to this pane for views to display immediately on page
   // load.
   mainPane: SC.MainPane.design({
-    childViews: ['labelView'],
+    themeName: 'fam-cal',
+    childViews: [SC.View.extend({
+      layout: { width: 1024, centerX: 0 },
+      modeAdjust: { 
+        m_p: { layout: { width: 768 }}
+      },
+      childViews: 'topbar agendaArea mainSection'.w(),
 
-    labelView: SC.LabelView.design({
-      classNames: ['welcome-label'],
-      layout: { centerX: 0, centerY: 0, width: 300, height: 24 },
-      tagName: "h1",
-      value: "Welcome to SproutCore!"
-    })
+      topbar: SC.ContainerView.extend({
+        backgroundColor: 'green',
+        layout: { height: 24 },
+        contentView: SC.View.extend(SC.FlowedLayout,{
+          classNames: 'top-bar'.w(),
+          transitionIn: SC.View.FADE_IN,
+          defaultFlowSpacing: { left: 5, right: 5 },
+          childViews: 'home login logout help'.w(),
+
+          home: SC.ButtonView.extend(SC.AutoResize, {
+            layout: { width: 24 },
+            title: "Home",
+          }),
+
+          login: SC.ButtonView.extend(SC.AutoResize, {
+            layout: { width: 24 },
+            title: "Log In".loc()
+          }),
+
+          logout: SC.ButtonView.extend(SC.AutoResize, {
+            layout: { width: 24 },
+            title: "Log Out".loc()
+          }),
+
+          help: SC.ButtonView.extend(SC.AutoResize, {
+            layout: { width: 24 },
+            title: "Help".loc()
+          }),
+        }),
+      }),
+
+      agendaArea: SC.View.design({
+        backgroundColor: 'green',
+        layout: { top: 25, height: 700, width: 300},
+      }),
+
+      mainSection: SC.View.design({
+        backgroundColor: 'green',
+        layout: { top: 25, height: 700, width: 800, left: 325},
+      }),
+
+    })]
   })
 
 });
